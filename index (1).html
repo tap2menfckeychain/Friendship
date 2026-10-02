@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kỷ niệm tình bạn ♡</title>
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="page">
+      <main class="container">
+        <!-- ================= PHẦN MỞ ĐẦU ================= -->
+        <header class="intro">
+          <div class="sparkle">✨</div>
+
+          <div class="intro-title">
+            <h1>
+              Trạm kỷ niệm<br />
+              để nhớ chúng ta nhé! ♡
+            </h1>
+          </div>
+
+          <p>Một góc nhỏ dành cho những kỷ niệm của chúng mình</p>
+        </header>
+
+        <!-- ================= 6 ẢNH KỶ NIỆM ================= -->
+        <section class="photos-collage">
+          <div class="collage-item item-1">
+            <img src="./anh1.jpg" alt="Kỷ niệm 1" />
+          </div>
+          <div class="collage-item item-2">
+            <img src="./anh2.jpg" alt="Kỷ niệm 2" />
+          </div>
+          <div class="collage-item item-3">
+            <img src="./anh3.jpg" alt="Kỷ niệm 3" />
+          </div>
+          <div class="collage-item item-4">
+            <img src="./anh4.jpg" alt="Kỷ niệm 4" />
+          </div>
+          <div class="collage-item item-5">
+            <img src="./anh5.png" alt="Kỷ niệm 5" />
+          </div>
+          <div class="collage-item item-6">
+            <img src="./anh6.jpg" alt="Kỷ niệm 6" />
+          </div>
+        </section>
+
+        <!-- ================= HỘP NHẠC ================= -->
+        <section class="music-card">
+          <div class="music-disc-area">
+            <div class="music-disc" id="musicDisc">
+              <div class="disc-center">♡</div>
+            </div>
+          </div>
+
+          <div class="music-info">
+            <div class="music-label">♪ Một chút nhạc cho kỷ niệm</div>
+
+            <h2>có một ngày chúng ta...</h2>
+
+            <p class="artist">marzuz</p>
+
+            <div class="music-progress">
+              <span id="currentTime">0:00</span>
+
+              <input
+                id="progress"
+                type="range"
+                min="0"
+                max="100"
+                value="0"
+                step="0.1"
+              />
+
+              <span id="duration">0:00</span>
+            </div>
+
+            <div class="music-controls">
+              <button id="playBtn" class="play-btn" type="button">▶</button>
+
+              <button id="volumeBtn" class="volume-btn" type="button">
+                🔊
+              </button>
+
+              <input
+                id="volume"
+                type="range"
+                min="0"
+                max="1"
+                value="0.75"
+                step="0.01"
+              />
+            </div>
+          </div>
+
+          <!-- FILE NHẠC (đã đổi tên thành music.mp3) -->
+          <audio id="audio" preload="metadata">
+            <source src="./music.mp3" type="audio/mpeg" />
+            Trình duyệt của bạn không hỗ trợ phát nhạc.
+          </audio>
+        </section>
+
+        <!-- ================= LỜI CHÚC ================= -->
+        <section class="letter">
+          <div class="flower">🌷</div>
+
+          <h2>Gửi những người bạn của mình... ♡</h2>
+
+          <!-- Nếu link có lời chúc riêng, phần này sẽ được thay thế -->
+          <div id="letterBody">
+            <p>
+              Cảm ơn vì chúng ta đã gặp nhau,<br />
+              đã cùng nhau có thật nhiều câu chuyện,<br />
+              những tiếng cười và cả những ngày chẳng thể nào quên.
+            </p>
+
+            <p>
+              Mong rằng sau này, dù mỗi người có một hành trình riêng,<br />
+              chúng ta vẫn sẽ nhớ về những ngày tháng này<br />
+              bằng một nụ cười thật đẹp.
+            </p>
+
+            <p class="wish">
+              Chúc tình bạn của chúng ta<br />
+              luôn thật lâu, thật vui và thật đáng nhớ. 💗
+            </p>
+          </div>
+
+          <div class="signature" id="signature">
+            — Thương những người bạn của mình —
+          </div>
+        </section>
+
+        <footer>
+          ✨ Cảm ơn vì đã là một phần trong thanh xuân của nhau ♡ ✨
+        </footer>
+      </main>
+    </div>
+
+    <!-- JAVASCRIPT: trình phát nhạc -->
+    <script src="./script.js"></script>
+
+    <!-- JAVASCRIPT: đọc dữ liệu cá nhân hóa từ ?data=... -->
+    <script>
+      (function () {
+        // PHẢI trùng với CLOUD_NAME trong upload.html
+        const CLOUD_NAME = "yx8ugl6f";
+        const IMG_BASE =
+          "https://res.cloudinary.com/" +
+          CLOUD_NAME +
+          "/image/upload/f_auto,q_auto,w_900/";
+
+        // Giải mã base64 / base64url (UTF-8, có tiếng Việt)
+        function decodeData(raw) {
+          let b64 = raw
+            .replace(/ /g, "+")
+            .replace(/-/g, "+")
+            .replace(/_/g, "/");
+          while (b64.length % 4) b64 += "=";
+          const bin = atob(b64);
+          const bytes = Uint8Array.from(bin, (c) => c.charCodeAt(0));
+          return JSON.parse(new TextDecoder().decode(bytes));
+        }
+
+        // Chỉ chấp nhận ảnh Cloudinary (tránh link lạ chèn vào thiệp)
+        function toImageUrl(item) {
+          if (typeof item !== "string") return null;
+          // Dạng cũ: link đầy đủ
+          if (item.startsWith("https://res.cloudinary.com/")) return item;
+          // Dạng gọn: v123456/ten_anh.jpg
+          if (/^v\d+\/[\w\-\/]+\.[a-z0-9]+$/i.test(item)) return IMG_BASE + item;
+          return null;
+        }
+
+        function loadCustomerData() {
+          const raw = new URLSearchParams(window.location.search).get("data");
+          if (!raw) return; // Không có ?data= thì giữ thiệp mặc định
+
+          try {
+            const data = decodeData(raw);
+
+            // 1. Tên người gửi -> chữ ký cuối thư
+            const name = typeof data.n === "string" ? data.n.trim() : "";
+            if (name) {
+              document.getElementById("signature").textContent =
+                "— " + name + " —";
+            }
+
+            // 2. Lời chúc -> thay toàn bộ nội dung thư
+            const msg = typeof data.m === "string" ? data.m.trim() : "";
+            if (msg) {
+              const body = document.getElementById("letterBody");
+              body.textContent = "";
+              const p = document.createElement("p");
+              p.className = "wish";
+              p.style.whiteSpace = "pre-line"; // giữ xuống dòng người dùng gõ
+              p.textContent = msg; // textContent: an toàn, không chạy HTML lạ
+              body.appendChild(p);
+            }
+
+            // 3. Ảnh -> ghi đè 6 khung ảnh (ít hơn 6 thì lặp lại cho đủ khung)
+            const list = data.i || data.imgs || [];
+            const urls = list.map(toImageUrl).filter(Boolean);
+            if (urls.length > 0) {
+              document
+                .querySelectorAll(".collage-item img")
+                .forEach((img, idx) => {
+                  img.src = urls[idx % urls.length];
+                });
+            }
+          } catch (e) {
+            console.error("Link không chứa dữ liệu hợp lệ:", e);
+          }
+        }
+
+        loadCustomerData();
+      })();
+    </script>
+  </body>
+</html>
